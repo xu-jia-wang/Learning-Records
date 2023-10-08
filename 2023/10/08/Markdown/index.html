@@ -6,13 +6,15 @@
   
   <title>Markdown | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta property="og:type" content="article">
+  <meta name="description" content="leetcode_826. 安排工作以达到最大收益贪心法：目标是最大利润，但是利润的获取是要建立在难度的许可之下的，所以首先对难度和工人能力排序，对于每个工人记录下他的能力下所能取得的最大利润，对于后面的工人，那么就需要判断他的能力能否突破上一个人的上限获取到更大的利润，使用一个数来记录最大利润就行。需要注意的是在进行while循环的时候注意j可能会超出数组范围，需要加入限制条件。 1234567">
+<meta property="og:type" content="article">
 <meta property="og:title" content="Markdown">
 <meta property="og:url" content="https://xu-jia-wang.github.io/Learning-Records/2023/10/08/Markdown/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="leetcode_826. 安排工作以达到最大收益贪心法：目标是最大利润，但是利润的获取是要建立在难度的许可之下的，所以首先对难度和工人能力排序，对于每个工人记录下他的能力下所能取得的最大利润，对于后面的工人，那么就需要判断他的能力能否突破上一个人的上限获取到更大的利润，使用一个数来记录最大利润就行。需要注意的是在进行while循环的时候注意j可能会超出数组范围，需要加入限制条件。 1234567">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-10-08T03:00:33.000Z">
-<meta property="article:modified_time" content="2023-10-08T03:00:33.287Z">
+<meta property="article:modified_time" content="2023-10-08T03:10:01.780Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
   
@@ -95,11 +97,13 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        
+        <h3 id="leetcode-826-安排工作以达到最大收益"><a href="#leetcode-826-安排工作以达到最大收益" class="headerlink" title="leetcode_826. 安排工作以达到最大收益"></a>leetcode_826. 安排工作以达到最大收益</h3><p>贪心法：目标是最大利润，但是利润的获取是要建立在难度的许可之下的，所以首先对难度和工人能力排序，对于每个工人记录下他的能力下所能取得的最大利润，对于后面的工人，那么就需要判断他的能力能否突破上一个人的上限获取到更大的利润，使用一个数来记录最大利润就行。需要注意的是在进行while循环的时候注意j可能会超出数组范围，需要加入限制条件。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">maxProfitAssignment</span><span class="params">(<span class="type">int</span>[] difficulty, <span class="type">int</span>[] profit, <span class="type">int</span>[] worker)</span> &#123;</span><br><span class="line">      <span class="type">int</span> premaxprofit=Integer.MIN_VALUE;</span><br><span class="line">      <span class="type">int</span> ans=<span class="number">0</span>;</span><br><span class="line">      <span class="type">int</span> n= difficulty.length;</span><br><span class="line">      Arrays.sort(worker);<span class="comment">//先对工人排序</span></span><br><span class="line">      <span class="type">int</span>[][] d=<span class="keyword">new</span> <span class="title class_">int</span>[n][<span class="number">2</span>];</span><br><span class="line">      <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">          d[i][<span class="number">0</span>]=difficulty[i];</span><br><span class="line">          d[i][<span class="number">1</span>]=profit[i];</span><br><span class="line">      &#125;</span><br><span class="line">      Arrays.sort(d,(o1, o2) -&gt; o1[<span class="number">0</span>]-o2[<span class="number">0</span>]);<span class="comment">//按照难度排序</span></span><br><span class="line">      <span class="type">int</span> j=<span class="number">0</span>;</span><br><span class="line">      <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt; worker.length;i++) &#123;</span><br><span class="line">          <span class="keyword">while</span> (j&lt;n&amp;&amp;worker[i]&gt;=d[j][<span class="number">0</span>])&#123;</span><br><span class="line">              premaxprofit=Math.max(premaxprofit,d[j++][<span class="number">1</span>]);</span><br><span class="line">          &#125;</span><br><span class="line">          ans+=(premaxprofit==Integer.MIN_VALUE?<span class="number">0</span>:premaxprofit);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> ans;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://xu-jia-wang.github.io/Learning-Records/2023/10/08/Markdown/" data-id="clngvrcd30000f81me19za6ew" data-title="Markdown" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://xu-jia-wang.github.io/Learning-Records/2023/10/08/Markdown/" data-id="clngw0sx60000g41m24eb5a4q" data-title="Markdown" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
