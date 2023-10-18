@@ -14,7 +14,7 @@
 <meta property="og:description" content="leetcode_826. 安排工作以达到最大收益贪心法：目标是最大利润，但是利润的获取是要建立在难度的许可之下的，所以首先对难度和工人能力排序，对于每个工人记录下他的能力下所能取得的最大利润，对于后面的工人，那么就需要判断他的能力能否突破上一个人的上限获取到更大的利润，使用一个数来记录最大利润就行。需要注意的是在进行while循环的时候注意j可能会超出数组范围，需要加入限制条件。 1234567">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-10-08T03:00:33.000Z">
-<meta property="article:modified_time" content="2023-10-14T07:38:43.550Z">
+<meta property="article:modified_time" content="2023-10-18T08:19:01.845Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
   
@@ -126,6 +126,9 @@
 <h3 id="leetcode-983-最低票价"><a href="#leetcode-983-最低票价" class="headerlink" title="leetcode_983. 最低票价"></a>leetcode_983. 最低票价</h3><p>记忆化搜索。<br>首先确定整个问题的子问题是什么？假设最后一天一定是需要买票的，那么就存在三种情况：买一天的、买七天的、买三十天的，那么我们只需要找到下一个需要买票的位置，再进行记忆化搜索。最后取这些数的最小值。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span>[] dp;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">mincostTickets</span><span class="params">(<span class="type">int</span>[] days, <span class="type">int</span>[] costs)</span> &#123;</span><br><span class="line">       <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> days.length;</span><br><span class="line">       dp = <span class="keyword">new</span> <span class="title class_">int</span>[n];</span><br><span class="line">       Arrays.fill(dp, -<span class="number">1</span>);</span><br><span class="line">       <span class="keyword">return</span> dfs(n - <span class="number">1</span>, days, costs);</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">dfs</span><span class="params">(<span class="type">int</span> i, <span class="type">int</span>[] days, <span class="type">int</span>[] costs)</span> &#123;</span><br><span class="line">       <span class="keyword">if</span> (i &lt; <span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">       <span class="keyword">if</span> (dp[i] != -<span class="number">1</span>) <span class="keyword">return</span> dp[i];</span><br><span class="line"></span><br><span class="line">       <span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> -<span class="number">1</span>, k = -<span class="number">1</span>;</span><br><span class="line">       <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">m</span> <span class="operator">=</span> i; m &gt;= <span class="number">0</span>; --m) &#123;</span><br><span class="line">           <span class="keyword">if</span> (days[i] - days[m] &gt; <span class="number">6</span>) &#123;<span class="comment">//这个节点需要重新买票</span></span><br><span class="line">               j = m;</span><br><span class="line">               <span class="keyword">break</span>;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">m</span> <span class="operator">=</span> i; m &gt;= <span class="number">0</span>; --m) &#123;</span><br><span class="line">           <span class="keyword">if</span> (days[i] - days[m] &gt; <span class="number">29</span>) &#123;</span><br><span class="line">               k = m;</span><br><span class="line">               <span class="keyword">break</span>;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       dp[i] = Math.min(dfs(i - <span class="number">1</span>, days, costs) + costs[<span class="number">0</span>], Math.min(dfs(j, days, costs) + costs[<span class="number">1</span>], dfs(k, days, costs) + costs[<span class="number">2</span>]));<span class="comment">//上一个买票的点处，如果超出范围那么直接就是</span></span><br><span class="line">       <span class="keyword">return</span> dp[i];</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
 
+<h3 id="leetcode-646-最长数对链"><a href="#leetcode-646-最长数对链" class="headerlink" title="leetcode_646. 最长数对链"></a>leetcode_646. 最长数对链</h3><p>这题首先想到的就是对数组首先需要排序，排序应该按照右侧排序(右侧相同，按照左侧进行升序)，排序完成后就选择添加就行了。贪心：每次添加的都是最小的，这样到最后添加的数目应该就是最大的</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">findLongestChain</span><span class="params">(<span class="type">int</span>[][] pairs)</span> &#123;</span><br><span class="line">    <span class="comment">//考虑使用贪心</span></span><br><span class="line">    <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> pairs.length;</span><br><span class="line">    Arrays.sort(pairs, (o1, o2) -&gt; o1[<span class="number">1</span>] == o2[<span class="number">1</span>] ? o1[<span class="number">0</span>] - o2[<span class="number">0</span>] : o1[<span class="number">1</span>] - o2[<span class="number">1</span>]);</span><br><span class="line">    <span class="type">int</span> <span class="variable">left</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">right</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">ans</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (right &lt; n) &#123;</span><br><span class="line">        <span class="keyword">if</span> (pairs[right][<span class="number">0</span>] &gt; pairs[left][<span class="number">1</span>]) &#123;</span><br><span class="line">            <span class="comment">//增加链长</span></span><br><span class="line">            left = right;</span><br><span class="line">            ans++;</span><br><span class="line">        &#125; </span><br><span class="line">            right++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
       
     </div>
     <footer class="article-footer">
@@ -138,6 +141,15 @@
   
     
 <nav id="article-nav">
+  
+    <a href="/Learning-Records/2023/10/18/%E5%91%A8%E8%B5%9B-367/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          周赛_367
+        
+      </div>
+    </a>
   
   
     <a href="/Learning-Records/2023/10/08/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
@@ -178,6 +190,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/Learning-Records/2023/10/18/%E5%91%A8%E8%B5%9B-367/">周赛_367</a>
+          </li>
         
           <li>
             <a href="/Learning-Records/2023/10/08/Markdown/">Markdown</a>
