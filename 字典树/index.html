@@ -6,7 +6,7 @@
 	<title>字典树 - 变强日记</title>
 	<meta charset="utf-8">
 	
-		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
 	
 	<meta name="description" content="前缀树Trie(字典树)Trie树的意义： Trie树（又叫「前缀树」或「字典树」）是一种用于快速查询「某个字符串&#x2F;字符前缀」是否存在的数据结构。 其核心是使用「边」来代表有无字符，使用「点」来记录是否为「单词结尾」以及「其后续字符串的字符是什么」。这样来形成一个树的形状，可以快速判断某个字符是否在树中(或者是否包含这个字符的前缀)  Trie树的构建：使用二维数组或者使用TrieNod">
 <meta property="og:type" content="article">
@@ -297,12 +297,6 @@
 		</div>
 	</div>
 	
-		<style>
-			section.banner{
-				background-image: url(/assets/img/banner.jpg) !important;
-			}
-		</style>
-	
 </section>
 
 
@@ -316,11 +310,11 @@
 			top: 0;
 			bottom: 0;
 			z-index: -2;
-			background: url(/assets/img/banner.jpg);
+			background: url(/Learning-Records/assets/img/background.jpg);
 			background-position: center;
 			background-size: cover;
 			background-repeat: no-repeat;
-			opacity: 1;
+			opacity: 0;
 			transition: opacity .5s ease;
 		}
 		html.darkmode #content:before{
@@ -336,7 +330,7 @@
 				top: 0;
 				bottom: 0;
 				z-index: -2;
-				background: url(/assets/img/banner.jpg);
+				background: url(/Learning-Records/assets/img/background.jpg);
 				background-position: center;
 				background-size: cover;
 				background-repeat: no-repeat;
@@ -344,7 +338,7 @@
 				transition: opacity .5s ease;
 			}
 			html.darkmode #content:after {
-				opacity: 1;
+				opacity: 0;
 			}
 			html.darkmode #content:before {
 				opacity: 0;
@@ -609,7 +603,7 @@
 		
 		
 			
-	<article class="post post-full card bg-white shadow-sm border-0 ">
+	<article class="post post-full card bg-white shadow-sm border-0 post-preview">
 	<header class="post-header text-center">
 		
 		<a class="post-title" href="/Learning-Records/%E5%AD%97%E5%85%B8%E6%A0%91/">字典树</a>
