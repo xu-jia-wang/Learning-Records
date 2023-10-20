@@ -6,7 +6,7 @@
   <link href="https://xu-jia-wang.github.io/Learning-Records/atom.xml" rel="self"/>
   
   <link href="https://xu-jia-wang.github.io/Learning-Records/"/>
-  <updated>2023-10-20T01:56:48.853Z</updated>
+  <updated>2023-10-20T06:18:59.066Z</updated>
   <id>https://xu-jia-wang.github.io/Learning-Records/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>List 操作</title>
+    <link href="https://xu-jia-wang.github.io/Learning-Records/List-%E6%93%8D%E4%BD%9C/"/>
+    <id>https://xu-jia-wang.github.io/Learning-Records/List-%E6%93%8D%E4%BD%9C/</id>
+    <published>2023-10-20T06:15:39.000Z</published>
+    <updated>2023-10-20T06:18:59.066Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="List直接转换到int"><a href="#List直接转换到int" class="headerlink" title="List直接转换到int[]"></a>List直接转换到int[]</h3><p><code>int[] array = list.stream().mapToInt(Integer::intValue).toArray();</code><br>list.stream()表示将list转换为一个流对象，.mapToInt(Integer::intValue)表示将流中的每个Integer类型的元素映射为其对应的int类型，最后使用.toArray()将转换后的流生成一个int类型的数组。这种写法可以避免了循环遍历整个列表，并且使用了Java 8的lambda表达式来实现代码简洁易读。</p><p>一般可以使用例如：<code>list.toArray(new int[0][])</code>或者 <code>list.toArray(new int[0])</code></p><h3 id="对List进行排序"><a href="#对List进行排序" class="headerlink" title="对List进行排序"></a>对List进行排序</h3><p>注意是对实体list调用方法</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer[]&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">list.sort((o1, o2) -&gt; o1[<span class="number">1</span>] == o2[<span class="number">1</span>] ? o1[<span class="number">0</span>] - o2[<span class="number">0</span>] : o2[<span class="number">1</span>] - o1[<span class="number">1</span>]);</span><br></pre></td></tr></table></figure><p>或者：Collections.sort(list,(o1,o2)…)</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h3 id=&quot;List直接转换到int&quot;&gt;&lt;a href=&quot;#List直接转换到int&quot; class=&quot;headerlink&quot; title=&quot;List直接转换到int[]&quot;&gt;&lt;/a&gt;List直接转换到int[]&lt;/h3&gt;&lt;p&gt;&lt;code&gt;int[] array = list.s</summary>
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>双周赛115</title>
