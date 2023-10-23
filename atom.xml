@@ -6,7 +6,7 @@
   <link href="https://xu-jia-wang.github.io/Learning-Records/atom.xml" rel="self"/>
   
   <link href="https://xu-jia-wang.github.io/Learning-Records/"/>
-  <updated>2023-10-20T06:18:59.066Z</updated>
+  <updated>2023-10-23T03:40:42.048Z</updated>
   <id>https://xu-jia-wang.github.io/Learning-Records/</id>
   
   <author>
@@ -15,6 +15,46 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>贪心</title>
+    <link href="https://xu-jia-wang.github.io/Learning-Records/%E8%B4%AA%E5%BF%83/"/>
+    <id>https://xu-jia-wang.github.io/Learning-Records/%E8%B4%AA%E5%BF%83/</id>
+    <published>2023-10-23T03:40:32.000Z</published>
+    <updated>2023-10-23T03:40:42.048Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="leetcode-2910-合法分组的最少组数"><a href="#leetcode-2910-合法分组的最少组数" class="headerlink" title="leetcode_2910. 合法分组的最少组数"></a>leetcode_2910. 合法分组的最少组数</h3><p>首先考虑就是分组的条件，因为没注意到具体条件走了不少的弯路。然后就是贪心的进行分组，只要能满足分组情况那么就直接分，一旦出现一个不满足的情况说明这个分组数目不满足需要进行k–</p><pre><code class="java">    public static int minGroupsForValidAssignment(int[] nums) &#123;        //贪心的考虑：分组之后只能出现两个数字，那么显然分成k+1和k的情况下得到的组数是最少的，不用考虑k,k-1        // 在可以分组的前提下，分出的 k+1 越多，组数就越少        //但是什么时候是可以分组呢？什么时候不可以分组呢？        // 显然只考虑分成k和k+1的组就行，因为如果分成k,k-1那么k--就可以了，一次只考虑一种情况        //如果都考虑只会做不出来        Map&lt;Integer, Integer&gt; map = new HashMap&lt;&gt;();        for (int x : nums) map.put(x, map.getOrDefault(x, 0) + 1);        Collection&lt;Integer&gt; numberOfOccurrences = map.values();        int k = Integer.MAX_VALUE;        for (int y : numberOfOccurrences) &#123;//获得这些数中的最小的出现次数            k = Math.min(k, y);        &#125;        for(;;k--)&#123;//从后向前遍历，得到答案就直接返回，节省时间            int ans=0;            for(int c:map.values())&#123;                int g = c / k;                int m = c % k;                if(g &lt; m)&#123;//多出来的这些数加不到前面的每一个组中去，说明这样分是不对的                    ans=0;                    break;                &#125;                ans+=(c+k)/(k+1);//获取所有的分组            &#125;            if(ans&gt;0) return ans;        &#125;    &#125;</code></pre>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h3 id=&quot;leetcode-2910-合法分组的最少组数&quot;&gt;&lt;a href=&quot;#leetcode-2910-合法分组的最少组数&quot; class=&quot;headerlink&quot; title=&quot;leetcode_2910. 合法分组的最少组数&quot;&gt;&lt;/a&gt;leetcode_2910. 合</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>前缀和（包含前缀后缀分解）</title>
+    <link href="https://xu-jia-wang.github.io/Learning-Records/%E5%89%8D%E7%BC%80%E5%92%8C/"/>
+    <id>https://xu-jia-wang.github.io/Learning-Records/%E5%89%8D%E7%BC%80%E5%92%8C/</id>
+    <published>2023-10-23T01:41:17.000Z</published>
+    <updated>2023-10-23T02:10:57.088Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="leetcode-1423-可获得的最大点数"><a href="#leetcode-1423-可获得的最大点数" class="headerlink" title="leetcode_1423. 可获得的最大点数"></a>leetcode_1423. 可获得的最大点数</h3><p>前缀和以及后缀和的应用：一共只能取k次，那么枚举取开头位置的次数为i,末尾的次数就是k-i次，最后计算出最大值。</p><pre><code class="java">    public int maxScore(int[] cardPoints, int k) &#123;        //贪心的思想，一共只能取k次，那么枚举取开头位置的次数为i,末尾的次数就是k-i次，最后计算出最大值。        //使用前缀和以及后缀和来做        int n = cardPoints.length;        int[] prefix=new int[n+1];        int[] suffix=new int[n+1];        for(int i=0;i&lt;k;i++)&#123;            prefix[i+1] = prefix[i] + cardPoints[i];        &#125;        for(int i=n-1;i&gt;n-k-1;i--)&#123;            suffix[i] = suffix[i+1] + cardPoints[i];        &#125;        int res = 0;        //前面取i个元素，后面取k-i个元素        for(int i=0;i&lt;=k;i++)&#123;            res = Math.max(res,prefix[i]+suffix[n-k+i]);        &#125;        return res;    &#125;</code></pre><h3 id="leetcode-2909-元素和最小的山形三元组-II"><a href="#leetcode-2909-元素和最小的山形三元组-II" class="headerlink" title="leetcode_2909. 元素和最小的山形三元组 II"></a>leetcode_2909. 元素和最小的山形三元组 II</h3><p>使用前后缀分解的办法，记录每个数的左侧最小以及右侧最小，并且判断这个数是否满足山形的要求。</p><pre><code class="java">    public static int minimumSum(int[] nums) &#123;        int n= nums.length;        int[] left_minimum=new int[n];        int[] right_minimum=new int[n];        int Min=Integer.MAX_VALUE;        for(int i=1;i&lt;n;i++)&#123;            Min=Math.min(Min,nums[i-1]);            left_minimum[i]=Min;        &#125;        Min=Integer.MAX_VALUE;        for(int i=n-2;i&gt;=0;i--)&#123;            Min=Math.min(Min,nums[i+1]);            right_minimum[i]=Min;        &#125;        int res=Integer.MAX_VALUE;        for(int i=1;i&lt;n-1;i++)&#123;            if(nums[i]&gt;left_minimum[i]&amp;&amp;nums[i]&gt;right_minimum[i]) &#123;                res = Math.min(res, right_minimum[i] + left_minimum[i] + nums[i]);            &#125;        &#125;        return res==Integer.MAX_VALUE?-1:res;    &#125;</code></pre>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h3 id=&quot;leetcode-1423-可获得的最大点数&quot;&gt;&lt;a href=&quot;#leetcode-1423-可获得的最大点数&quot; class=&quot;headerlink&quot; title=&quot;leetcode_1423. 可获得的最大点数&quot;&gt;&lt;/a&gt;leetcode_1423. 可获得的</summary>
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>List 操作</title>
