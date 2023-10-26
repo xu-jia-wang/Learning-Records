@@ -16,7 +16,7 @@
 <meta property="og:description" content="leetcode_1155. 掷骰子等于目标和的方法数使用记忆化搜索，首先发现存在着子问题，那么使用dp的办法没问题。然后确定子问题是什么，显然当最后一个骰子掷出一个数字m,那么后面的问题就变成n-1个骰子得到和为target-m的问题。那么就可以实现递归解决。定义数组，两个维度分别表示骰子数目和骰子和，最后答案为dfs(n,target).显然递归式子好写，难点在于这个不要+1，我总是认为需要加">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-10-25T01:11:38.000Z">
-<meta property="article:modified_time" content="2023-10-25T03:35:31.786Z">
+<meta property="article:modified_time" content="2023-10-26T03:37:49.343Z">
 <meta property="article:author" content="徐嘉旺">
 <meta name="twitter:card" content="summary">
 
@@ -504,7 +504,7 @@
 							<nav class="site-state">
 								<div class="site-state-item site-state-posts">
 									<a href="/Learning-Records/archives">
-										<span class="site-state-item-count">9</span>
+										<span class="site-state-item-count">10</span>
 										<span class="site-state-item-name">文章</span>
 									</a>
 								</div>
@@ -610,7 +610,7 @@
 						
 						<div class="post-meta-detail post-meta-detail-time">
 							<i class="fa fa-clock-o" aria-hidden="true"></i>
-							<time title="发布于 2023-10-25 9:11:38 | 编辑于 2023-10-25 11:35:31">2023-10-25 9:11
+							<time title="发布于 2023-10-25 9:11:38 | 编辑于 2023-10-26 11:37:49">2023-10-25 9:11
 							</time>
 						</div>
 					
@@ -629,7 +629,7 @@
 						
 						<div class="post-meta-detail post-meta-detail-words">
 							<i class="fa fa-file-word-o" aria-hidden="true"></i>
-							624 字
+							999 字
 						</div>
 					
 						
@@ -637,7 +637,7 @@
 						
 						<div class="post-meta-detail post-meta-detail-readingtime">
 							<i class="fa fa-hourglass-end" aria-hidden="true"></i>
-							2 分钟
+							4 分钟
 						</div>
 					
 		</div>
@@ -686,6 +686,23 @@
 
         return dp[max];
 &#125;
+</code></pre>
+<h3 id="leetcode-2327-知道秘密的人数"><a href="#leetcode-2327-知道秘密的人数" class="headerlink" title="leetcode_2327. 知道秘密的人数"></a>leetcode_2327. 知道秘密的人数</h3><p>题目理解起来有点困难。<br>首先将人分成三类：<br>                 1.在第i天知道秘密并且可以分享的人<br>                 2.在第i天知道了秘密但是不能分享的人<br>                 3.在第i天已经忘记了秘密的人（不计算）<br>显然，我们只需要计算前两种就可以知道第i天知道秘密的人数，就可以知道答案了。那么如何计算呢，对于第一种人，我们可以使用数组来记录，使用f[i]表示第i天已知且分享的人数，那么对于(i+delay,i+forget)天内都需要加上f[i]。<br>对于第二种人，那么就是他已经知道了秘密的日期为k，但是k+delay&gt;&#x3D;i,也就是第i天他无法分享秘密，那么cnt&#x3D;cnt+f[k]</p>
+<pre><code class="java">   static final int MOD=(int) 1e9 + 7;
+    public static int peopleAwareOfSecret(int n, int delay, int forget) &#123;
+        int[] diff=new int[n];
+        diff[0]=1;//初始只有一个人知道秘密,表示第n天已经知道了秘密且可以分享给别人的人数
+        int cntB=0;//表示目前知道秘密但是不能分享的人数
+        for(int i=0;i&lt;n;i++)&#123;
+            if(i+delay&gt;=n)&#123;//说明这个人是第n天知道秘密但是不能分享秘密的人
+                cntB=(cntB+diff[i])%MOD;
+            &#125;
+            for(int j=i+delay;j&lt;Math.min(i+forget,n);j++)&#123;
+                diff[j]=(diff[j]+diff[i])%MOD;
+            &#125;
+        &#125;
+        return (diff[n - 1] + cntB) % MOD;
+    &#125;
 </code></pre>
 
 	</div>
@@ -804,7 +821,7 @@
 
 
 
-<div class="post-navigation card shadow-sm"><div class="post-navigation-item post-navigation-pre"></div><div class="post-navigation-item post-navigation-next"><span class="page-navigation-extra-text">下一篇 <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i></span><a href="/Learning-Records/%E8%B4%AA%E5%BF%83/" rel="next"> 贪心</a></div></div>
+<div class="post-navigation card shadow-sm"><div class="post-navigation-item post-navigation-pre"><span class="page-navigation-extra-text"><i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i>上一篇</span><a href="/Learning-Records/%E5%9B%9E%E6%BA%AF/" rel="prev"> 回溯</a></div><div class="post-navigation-item post-navigation-next"><span class="page-navigation-extra-text">下一篇 <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i></span><a href="/Learning-Records/%E8%B4%AA%E5%BF%83/" rel="next"> 贪心</a></div></div>
 
 
 
