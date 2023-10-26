@@ -16,7 +16,7 @@
 <meta property="og:description" content="leetcode_1155. 掷骰子等于目标和的方法数使用记忆化搜索，首先发现存在着子问题，那么使用dp的办法没问题。然后确定子问题是什么，显然当最后一个骰子掷出一个数字m,那么后面的问题就变成n-1个骰子得到和为target-m的问题。那么就可以实现递归解决。定义数组，两个维度分别表示骰子数目和骰子和，最后答案为dfs(n,target).显然递归式子好写，难点在于这个不要+1，我总是认为需要加">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-10-25T01:11:38.000Z">
-<meta property="article:modified_time" content="2023-10-26T03:37:49.343Z">
+<meta property="article:modified_time" content="2023-10-26T09:03:53.964Z">
 <meta property="article:author" content="徐嘉旺">
 <meta name="twitter:card" content="summary">
 
@@ -610,7 +610,7 @@
 						
 						<div class="post-meta-detail post-meta-detail-time">
 							<i class="fa fa-clock-o" aria-hidden="true"></i>
-							<time title="发布于 2023-10-25 9:11:38 | 编辑于 2023-10-26 11:37:49">2023-10-25 9:11
+							<time title="发布于 2023-10-25 9:11:38 | 编辑于 2023-10-26 17:03:53">2023-10-25 9:11
 							</time>
 						</div>
 					
@@ -629,7 +629,7 @@
 						
 						<div class="post-meta-detail post-meta-detail-words">
 							<i class="fa fa-file-word-o" aria-hidden="true"></i>
-							999 字
+							1.6k 字
 						</div>
 					
 						
@@ -637,7 +637,7 @@
 						
 						<div class="post-meta-detail post-meta-detail-readingtime">
 							<i class="fa fa-hourglass-end" aria-hidden="true"></i>
-							4 分钟
+							7 分钟
 						</div>
 					
 		</div>
@@ -702,6 +702,50 @@
             &#125;
         &#125;
         return (diff[n - 1] + cntB) % MOD;
+    &#125;
+</code></pre>
+<h3 id="leetcode-650-只有两个键的键盘"><a href="#leetcode-650-只有两个键的键盘" class="headerlink" title="leetcode_650. 只有两个键的键盘"></a>leetcode_650. 只有两个键的键盘</h3><p>显然可以使用动态规划来做，那么首先我需要i个字符，那么最好能进行一次粘贴很多个字符，然后尽快达到要求，但是题目的要求就让复制之后不能随意改变，因为每次复制都是直接复制所有的字符。所以考虑如何复制，在什么时候复制最好？枚举小于i的数，选择i的最大因子，这样一来我的操作次数就能大大降低。</p>
+<p>细节：对于i来说，j是他的因子，那么j,i&#x2F;j都是他的因子，其中必定有一个小于$\sqrt{i}$,因此我们直接枚举到$\sqrt{i}$就可以找到最大因子了，从而找到最优解。</p>
+<pre><code class="java">    public int minSteps(int n) &#123;
+        int[] dp=new int[n+1];
+        dp[0]=0;
+        dp[1]=0;
+        for(int i=1;i&lt;=n;i++)&#123;
+            //枚举i的最大因子
+            dp[i]=Integer.MAX_VALUE;
+            for(int j=1;j&lt;=i;j++)&#123;
+                if(i%j==0)&#123;
+                    dp[i]=Math.min(dp[i],dp[j]+i/j);
+                    dp[i]=Math.min(dp[i],dp[i/j]+j);
+                &#125;
+            &#125;
+        &#125;
+        return dp[n];
+    &#125;
+</code></pre>
+<h3 id="leetcode-面试题-08-11-硬币"><a href="#leetcode-面试题-08-11-硬币" class="headerlink" title="leetcode_面试题 08.11. 硬币"></a>leetcode_面试题 08.11. 硬币</h3><p>这种由于前后使用顺序带来重复计算的问题，应该考虑如何避免这种问题，在这里是直接考虑先使用小的硬币，再使用大的硬币。</p>
+<p>补充说明：为什么正确解法的coin要在外面？</p>
+<p>因为这样可以保证使用第二个硬币尝试的时候，dp中 只有 第一个硬币 尝试的结果</p>
+<p>即：</p>
+<p>dp[6]在使用第一个硬币时，等于dp[5] &#x3D;1。</p>
+<p>dp[6]在使用第二个硬币时，等于dp[1] &#x3D; 1(这是第一个硬币的组合结果)</p>
+<p>而错误解法中，dp[6]在第一个硬币尝试的时候，即dp[5]中有 尝试第一个、第二个硬币 的结果</p>
+<pre><code class="java">    //使用一维数组进行记忆化搜索存在重复计算的问题,这是因为使用硬币的顺序会对结果产生影响，所以考虑先使用小的硬币进行计算从而避免出现计算
+    //例如6:5+1，1+5是同样的，我们先把1的情况计算完，再计算5
+    int MOD = (int) 1e9 + 7;
+    int[] dp;//使用前i种硬币组成j的种数
+    int[] coins = new int[]&#123;1,5,10,25&#125;;
+
+    public int waysToChange(int n) &#123;
+        dp = new int[n+1];
+        dp[0] = 1;
+        //dp[i]=dp[i]+dp[i-coin]
+        for(int coin:coins)&#123;
+            for(int i=coin;i&lt;=n;i++)&#123;
+                dp[i]=(dp[i]+dp[i-coin])%MOD;
+            &#125;
+        &#125;
+        return dp[n];
     &#125;
 </code></pre>
 
