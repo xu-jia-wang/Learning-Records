@@ -16,7 +16,7 @@
 <meta property="og:description" content="leetcode_2910. 合法分组的最少组数首先考虑就是分组的条件，因为没注意到具体条件走了不少的弯路。然后就是贪心的进行分组，只要能满足分组情况那么就直接分，一旦出现一个不满足的情况说明这个分组数目不满足需要进行k–     public static int minGroupsForValidAssignment(int[] nums) &amp;#123;         &#x2F;&#x2F;贪心的考虑：分组之">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-10-23T03:40:32.000Z">
-<meta property="article:modified_time" content="2023-10-25T02:13:50.175Z">
+<meta property="article:modified_time" content="2023-10-30T09:37:49.513Z">
 <meta property="article:author" content="徐嘉旺">
 <meta name="twitter:card" content="summary">
 
@@ -504,7 +504,7 @@
 							<nav class="site-state">
 								<div class="site-state-item site-state-posts">
 									<a href="/Learning-Records/archives">
-										<span class="site-state-item-count">10</span>
+										<span class="site-state-item-count">11</span>
 										<span class="site-state-item-name">文章</span>
 									</a>
 								</div>
@@ -610,7 +610,7 @@
 						
 						<div class="post-meta-detail post-meta-detail-time">
 							<i class="fa fa-clock-o" aria-hidden="true"></i>
-							<time title="发布于 2023-10-23 11:40:32 | 编辑于 2023-10-25 10:13:50">2023-10-23 11:40
+							<time title="发布于 2023-10-23 11:40:32 | 编辑于 2023-10-30 17:37:49">2023-10-23 11:40
 							</time>
 						</div>
 					
@@ -629,7 +629,7 @@
 						
 						<div class="post-meta-detail post-meta-detail-words">
 							<i class="fa fa-file-word-o" aria-hidden="true"></i>
-							610 字
+							692 字
 						</div>
 					
 						
@@ -689,6 +689,16 @@
                 maxScore = Math.max(maxScore, num[j]);
             &#125;
             ans+=maxScore;
+        &#125;
+        return ans;
+    &#125;
+</code></pre>
+<h3 id="leetcode-2914-使二进制字符串变美丽的最少修改次数"><a href="#leetcode-2914-使二进制字符串变美丽的最少修改次数" class="headerlink" title="leetcode_2914. 使二进制字符串变美丽的最少修改次数"></a>leetcode_2914. 使二进制字符串变美丽的最少修改次数</h3><p>最小的贪心单位是2,所以只需要判断每两个字符之间的相等情况。</p>
+<pre><code class="java">    public int minChanges(String s) &#123;
+        int n=s.length();
+        int ans=0;
+        for(int i=0;i&lt;n;i+=2)&#123;
+            if(s.charAt(i)!=s.charAt(i+1))ans++;
         &#125;
         return ans;
     &#125;
