@@ -6,7 +6,7 @@
   <link href="https://xu-jia-wang.github.io/Learning-Records/atom.xml" rel="self"/>
   
   <link href="https://xu-jia-wang.github.io/Learning-Records/"/>
-  <updated>2023-10-30T11:26:19.189Z</updated>
+  <updated>2023-10-31T02:03:17.068Z</updated>
   <id>https://xu-jia-wang.github.io/Learning-Records/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>位运算</title>
+    <link href="https://xu-jia-wang.github.io/Learning-Records/%E4%BD%8D%E8%BF%90%E7%AE%97/"/>
+    <id>https://xu-jia-wang.github.io/Learning-Records/%E4%BD%8D%E8%BF%90%E7%AE%97/</id>
+    <published>2023-10-31T02:01:38.000Z</published>
+    <updated>2023-10-31T02:03:17.068Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="leetcode-2917-找出数组中的-K-or-值"><a href="#leetcode-2917-找出数组中的-K-or-值" class="headerlink" title="leetcode_2917. 找出数组中的 K-or 值"></a>leetcode_2917. 找出数组中的 K-or 值</h3><p>简单的进行位运算，记录每一个位置上1出现的次数，使用与运算。</p><pre><code class="java"> public static int findKOr(int[] nums, int k) &#123;        //使用哈希表来记录每一位上出现的1的个数        Map&lt;Integer,Integer&gt; map=new HashMap&lt;&gt;();        for(int x:nums)&#123;            for(int i=0;i&lt;31;i++)&#123;                int num=1;                num&lt;&lt;=i;                if((num&amp;x)==num)&#123; //这个位置上为1                  map.put(i,map.getOrDefault(i,0)+1);                &#125;            &#125;        &#125;        int ans=0;        for(Map.Entry&lt;Integer,Integer&gt; entry:map.entrySet())&#123;            int count= entry.getValue();            int key = entry.getKey();            if(count&gt;=k) ans+=(1&lt;&lt;key);        &#125;        return ans;    &#125;</code></pre>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h3 id=&quot;leetcode-2917-找出数组中的-K-or-值&quot;&gt;&lt;a href=&quot;#leetcode-2917-找出数组中的-K-or-值&quot; class=&quot;headerlink&quot; title=&quot;leetcode_2917. 找出数组中的 K-or 值&quot;&gt;&lt;/a&gt;leet</summary>
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>二分查找</title>

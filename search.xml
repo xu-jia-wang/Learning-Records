@@ -4,6 +4,19 @@
   
     
     <entry>
+      <title>位运算</title>
+      <link href="/Learning-Records/%E4%BD%8D%E8%BF%90%E7%AE%97/"/>
+      <url>/Learning-Records/%E4%BD%8D%E8%BF%90%E7%AE%97/</url>
+      
+        <content type="html"><![CDATA[<h3 id="leetcode-2917-找出数组中的-K-or-值"><a href="#leetcode-2917-找出数组中的-K-or-值" class="headerlink" title="leetcode_2917. 找出数组中的 K-or 值"></a>leetcode_2917. 找出数组中的 K-or 值</h3><p>简单的进行位运算，记录每一个位置上1出现的次数，使用与运算。</p><pre><code class="java"> public static int findKOr(int[] nums, int k) &#123;        //使用哈希表来记录每一位上出现的1的个数        Map&lt;Integer,Integer&gt; map=new HashMap&lt;&gt;();        for(int x:nums)&#123;            for(int i=0;i&lt;31;i++)&#123;                int num=1;                num&lt;&lt;=i;                if((num&amp;x)==num)&#123; //这个位置上为1                  map.put(i,map.getOrDefault(i,0)+1);                &#125;            &#125;        &#125;        int ans=0;        for(Map.Entry&lt;Integer,Integer&gt; entry:map.entrySet())&#123;            int count= entry.getValue();            int key = entry.getKey();            if(count&gt;=k) ans+=(1&lt;&lt;key);        &#125;        return ans;    &#125;</code></pre>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>二分查找</title>
       <link href="/Learning-Records/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/"/>
       <url>/Learning-Records/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/</url>
