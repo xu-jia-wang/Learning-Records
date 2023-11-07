@@ -16,7 +16,7 @@
 <meta property="og:description" content="leetcode_1155. 掷骰子等于目标和的方法数使用记忆化搜索，首先发现存在着子问题，那么使用dp的办法没问题。然后确定子问题是什么，显然当最后一个骰子掷出一个数字m,那么后面的问题就变成n-1个骰子得到和为target-m的问题。那么就可以实现递归解决。定义数组，两个维度分别表示骰子数目和骰子和，最后答案为dfs(n,target).显然递归式子好写，难点在于这个不要+1，我总是认为需要加">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-10-25T01:11:38.000Z">
-<meta property="article:modified_time" content="2023-11-01T02:48:00.445Z">
+<meta property="article:modified_time" content="2023-11-07T02:26:08.382Z">
 <meta property="article:author" content="徐嘉旺">
 <meta name="twitter:card" content="summary">
 
@@ -610,7 +610,7 @@
 						
 						<div class="post-meta-detail post-meta-detail-time">
 							<i class="fa fa-clock-o" aria-hidden="true"></i>
-							<time title="发布于 2023-10-25 9:11:38 | 编辑于 2023-11-1 10:48:00">2023-10-25 9:11
+							<time title="发布于 2023-10-25 9:11:38 | 编辑于 2023-11-7 10:26:08">2023-10-25 9:11
 							</time>
 						</div>
 					
@@ -629,7 +629,7 @@
 						
 						<div class="post-meta-detail post-meta-detail-words">
 							<i class="fa fa-file-word-o" aria-hidden="true"></i>
-							2.2k 字
+							2.7k 字
 						</div>
 					
 						
@@ -637,7 +637,7 @@
 						
 						<div class="post-meta-detail post-meta-detail-readingtime">
 							<i class="fa fa-hourglass-end" aria-hidden="true"></i>
-							9 分钟
+							11 分钟
 						</div>
 					
 		</div>
@@ -811,6 +811,40 @@
             &#125;
         &#125;
         return dp[i] = res;
+    &#125;
+</code></pre>
+<h3 id="leetcode-2767-将字符串分割为最少的美丽子字符串"><a href="#leetcode-2767-将字符串分割为最少的美丽子字符串" class="headerlink" title="leetcode_2767. 将字符串分割为最少的美丽子字符串"></a>leetcode_2767. 将字符串分割为最少的美丽子字符串</h3><p>动态规划，使用记忆化搜索的方式。<br>首先想到子问题是什么，dfs的含义是什么。子问题显然就是当从末尾选择一个满足要求的字符后剩下的字符最小分割的数目。所以dfs的含义就是分割到i位置时的最小字符串数目。<br>首先预处理一下5的幂，这里需要处理7个字符串。处理之后开始进行dfs.从后向前枚举可以更方便的判断是否存在前导0，判断2进制是否为5的幂则是判断s.substring(j,i)是否在集合内。最后取这些所有情况的最小值就是答案。如果不存在这样的答案则返回-1。</p>
+<pre><code class="java">    String s;
+    Set&lt;String&gt; set;//预处理5的幂
+    int[] cache;
+
+    public int minimumBeautifulSubstrings(String s) &#123;
+        this.s = s;
+        int n = s.length();
+        cache = new int[n + 1];
+        Arrays.fill(cache, -1);
+        set = new HashSet&lt;&gt;();
+        for (int i = 0; i &lt; 8; i++) &#123;
+            set.add(Integer.toBinaryString((int) Math.pow(5, i)));//预处理
+        &#125;
+        int res = dfs(n);
+        return res==Integer.MAX_VALUE/2?-1:res;
+    &#125;
+
+    // 定义 dfs(i) 表示分割 s[:i] 的最少数目
+    //枚举 0 &lt; j &lt; i，看 s[j:i] 是否为美丽子字符串,且取所有情况的最小值
+    //递归边界： dfs(0) = 0, 表示分割完了s，是一种合法方案
+    // 递归入口： dfs(len(s)) 若不存在合法情况，返回-1
+    public int dfs(int i) &#123;
+        if(i==0) return 0;
+        if(cache[i]!=-1) return cache[i];
+        int res=Integer.MAX_VALUE/2;
+        for(int j=i-1;j&gt;=0;j--)&#123;
+            if(s.charAt(j)!=&#39;0&#39;&amp;&amp;set.contains(s.substring(j,i)))&#123;//不包含前导0，且为5的幂
+                res=Math.min(res,dfs(j)+1);
+            &#125;
+        &#125;
+        return cache[i]=res;
     &#125;
 </code></pre>
 
