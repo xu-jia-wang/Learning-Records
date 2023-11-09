@@ -3,20 +3,18 @@
 <html class="article-header-style-default">
 <head>
 	
-	<title>回溯 - 变强日记</title>
+	<title>Linux - 变强日记</title>
 	<meta charset="utf-8">
 	
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
 	
-	<meta name="description" content="leetcode_2305. 公平分发饼干回溯类的题目，直接回溯求解，使用数组记录每个小朋友的状况，将每种可能的答案都记录下来。最需要注意的地方就是，第一个饼干给谁都是一样的，每个树的构造都是相同的，所以当遇到再次分第一个饼干的归属的时候直接剪枝。可以多做做回溯类的题目。   int ans &#x3D; Integer.MAX_VALUE;     int k;     int[] cookies;">
-<meta property="og:type" content="article">
-<meta property="og:title" content="回溯">
-<meta property="og:url" content="https://xu-jia-wang.github.io/Learning-Records/%E5%9B%9E%E6%BA%AF/">
+	<meta property="og:type" content="article">
+<meta property="og:title" content="Linux">
+<meta property="og:url" content="https://xu-jia-wang.github.io/Learning-Records/Linux-1/">
 <meta property="og:site_name" content="变强日记">
-<meta property="og:description" content="leetcode_2305. 公平分发饼干回溯类的题目，直接回溯求解，使用数组记录每个小朋友的状况，将每种可能的答案都记录下来。最需要注意的地方就是，第一个饼干给谁都是一样的，每个树的构造都是相同的，所以当遇到再次分第一个饼干的归属的时候直接剪枝。可以多做做回溯类的题目。   int ans &#x3D; Integer.MAX_VALUE;     int k;     int[] cookies;">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-10-26T03:38:39.000Z">
-<meta property="article:modified_time" content="2023-10-26T03:39:24.983Z">
+<meta property="article:published_time" content="2023-11-09T03:58:57.000Z">
+<meta property="article:modified_time" content="2023-11-09T03:58:57.393Z">
 <meta property="article:author" content="徐嘉旺">
 <meta name="twitter:card" content="summary">
 
@@ -604,13 +602,13 @@
 	<article class="post post-full card bg-white shadow-sm border-0 post-preview">
 	<header class="post-header text-center">
 		
-		<a class="post-title" href="/Learning-Records/%E5%9B%9E%E6%BA%AF/">回溯</a>
+		<a class="post-title" href="/Learning-Records/Linux-1/">Linux</a>
 		<div class="post-meta">
 			
 						
 						<div class="post-meta-detail post-meta-detail-time">
 							<i class="fa fa-clock-o" aria-hidden="true"></i>
-							<time title="发布于 2023-10-26 11:38:39 | 编辑于 2023-10-26 11:39:24">2023-10-26 11:38
+							<time title="发布于 2023-11-9 11:58:57 | 编辑于 2023-11-9 11:58:57">2023-11-9 11:58
 							</time>
 						</div>
 					
@@ -629,7 +627,7 @@
 						
 						<div class="post-meta-detail post-meta-detail-words">
 							<i class="fa fa-file-word-o" aria-hidden="true"></i>
-							432 字
+							0 字
 						</div>
 					
 						
@@ -645,57 +643,7 @@
 	</header>
 
 	<div class="post-content" id="post_content">
-		<h3 id="leetcode-2305-公平分发饼干"><a href="#leetcode-2305-公平分发饼干" class="headerlink" title="leetcode_2305. 公平分发饼干"></a>leetcode_2305. 公平分发饼干</h3><p>回溯类的题目，直接回溯求解，使用数组记录每个小朋友的状况，将每种可能的答案都记录下来。最需要注意的地方就是，第一个饼干给谁都是一样的，每个树的构造都是相同的，所以当遇到再次分第一个饼干的归属的时候直接剪枝。可以多做做回溯类的题目。</p>
-<pre><code class="java">  int ans = Integer.MAX_VALUE;
-    int k;
-    int[] cookies;
-    int n;
-
-    public int distributeCookies(int[] cookies, int k) &#123;
-        this.cookies = cookies;
-        n = cookies.length;
-        this.k = k;
-
-        //我们在分配第一个饼干的时候，无论分配给哪个小孩，我们开启的回溯树都是一模一样的
-        backtrack(new int[k], n - 1);
-
-        return ans;
-    &#125;
-
-    public void backtrack(int[] bucket, int start) &#123;
-        if (start &lt; 0) &#123;
-            //说明饼干分完了
-            int curans = Integer.MIN_VALUE;
-            for (int count : bucket) &#123;
-                curans = Math.max(curans, count);
-            &#125;
-            ans = Math.min(ans,curans);
-            return;
-        &#125;
-        //剪枝1：如果剩下的饼干不够空手的小朋友了，那么直接返回
-        int zeroCount = 0;
-        for (int count : bucket) &#123;
-            if (count == 0) zeroCount++;
-        &#125;
-        if (zeroCount &gt; start + 1) return;
-
-        //剪枝2：如果有一个人的饼干数目比当前最小还多，剪枝
-        for (int x : bucket) &#123;
-            if (x &gt; ans) return;
-        &#125;
-        //回溯部分
-        for (int i = 0; i &lt; k; i++) &#123;
-            //剪枝3：第一个零食包不管给哪个小朋友，所开启的回溯树都一样，只要给一个小朋友就行了，这样的回溯树一下子就少了很多。
-            //这一步是很重要的，因为如果第一个给不同的人那么就会出现k个一样的树
-            if (start == n - 1 &amp;&amp; i &gt; 0) return;
-
-            //标准回溯代码
-            bucket[i] += cookies[start];
-            backtrack(bucket, start - 1);
-            bucket[i] -= cookies[start];
-        &#125;
-</code></pre>
-
+		
 	</div>
 
 	
@@ -742,7 +690,7 @@
 				<span class="btn-inner--icon"><i class="fa fa-twitter"></i></span>
 			</button>
 		</a>
-		<a target="_blank" class="no-pjax icon-telegram" href="https://telegram.me/share/url?url=https://xu-jia-wang.github.io/Learning-Records/%E5%9B%9E%E6%BA%AF/&text=回溯" tooltip="分享到 Telegram">
+		<a target="_blank" class="no-pjax icon-telegram" href="https://telegram.me/share/url?url=https://xu-jia-wang.github.io/Learning-Records/Linux-1/&text=Linux" tooltip="分享到 Telegram">
 			<button class="btn btn-icon btn-primary" style="background: #42a5f5;border: none;">
 				<span class="btn-inner--icon"><i class="fa fa-telegram"></i></span>
 			</button>
@@ -759,11 +707,11 @@
 </div>
 <script type="text/javascript">
 	socialShare("#share", {
-	    title : '回溯',
-	    description : `leetcode_2305. 公平分发饼干回溯类的题目，直接回溯求解，使用数组记录每个小朋友的状况，...`,
+	    title : 'Linux',
+	    description : ``,
 	    wechatQrcodeTitle : "分享到微信",
 	    wechatQrcodeHelper : '微信扫描二维码',
-	    source : 'https://xu-jia-wang.github.io/Learning-Records/%E5%9B%9E%E6%BA%AF/'
+	    source : 'https://xu-jia-wang.github.io/Learning-Records/Linux-1/'
 	});
 	$("#share_show")[0].onclick = function(){
 		$("#share_container").addClass("opened");
@@ -812,7 +760,7 @@
 
 
 
-<div class="post-navigation card shadow-sm"><div class="post-navigation-item post-navigation-pre"><span class="page-navigation-extra-text"><i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i>上一篇</span><a href="/Learning-Records/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" rel="prev"> 二分查找</a></div><div class="post-navigation-item post-navigation-next"><span class="page-navigation-extra-text">下一篇 <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i></span><a href="/Learning-Records/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="next"> 动态规划</a></div></div>
+<div class="post-navigation card shadow-sm"><div class="post-navigation-item post-navigation-pre"></div><div class="post-navigation-item post-navigation-next"><span class="page-navigation-extra-text">下一篇 <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i></span><a href="/Learning-Records/Linux/" rel="next"> </a></div></div>
 
 
 

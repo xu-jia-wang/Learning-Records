@@ -6,7 +6,7 @@
   <link href="https://xu-jia-wang.github.io/Learning-Records/atom.xml" rel="self"/>
   
   <link href="https://xu-jia-wang.github.io/Learning-Records/"/>
-  <updated>2023-10-31T02:03:17.068Z</updated>
+  <updated>2023-11-09T03:58:57.393Z</updated>
   <id>https://xu-jia-wang.github.io/Learning-Records/</id>
   
   <author>
@@ -15,6 +15,39 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Linux</title>
+    <link href="https://xu-jia-wang.github.io/Learning-Records/Linux-1/"/>
+    <id>https://xu-jia-wang.github.io/Learning-Records/Linux-1/</id>
+    <published>2023-11-09T03:58:57.000Z</published>
+    <updated>2023-11-09T03:58:57.393Z</updated>
+    
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="https://xu-jia-wang.github.io/Learning-Records/Linux/"/>
+    <id>https://xu-jia-wang.github.io/Learning-Records/Linux/</id>
+    <published>2023-11-08T08:17:38.247Z</published>
+    <updated>2023-11-09T03:57:12.489Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h1><h2 id="使用SSH工具远程操作服务器"><a href="#使用SSH工具远程操作服务器" class="headerlink" title="使用SSH工具远程操作服务器"></a>使用SSH工具远程操作服务器</h2><p>finalshell</p><h2 id="linux-常用命令"><a href="#linux-常用命令" class="headerlink" title="linux 常用命令"></a>linux 常用命令</h2><table><thead><tr><th align="center">命令</th><th align="center">作用</th></tr></thead><tbody><tr><td align="center">ls(list)</td><td align="center">查看当前目录下的内容</td></tr><tr><td align="center">pwd</td><td align="center">查看当前所在的目录</td></tr><tr><td align="center">cd[目录名]</td><td align="center">切换目录</td></tr><tr><td align="center">touch[文件名]</td><td align="center">如果文件不存在，新建文件</td></tr><tr><td align="center">mkdir[目录名]</td><td align="center">创建目录</td></tr><tr><td align="center">rm[文件名] （remove）</td><td align="center">删除指定文件</td></tr></tbody></table><p>技巧：</p><ul><li>Tab 自动补全</li><li>两次 tab 给出操作提示</li><li>使用ctrl+l快捷清屏</li></ul><p>Linux 命令格式：</p><p>command [-options] [parameter]<br>command: 命令名<br>options: 选项，可以用来对命令进行控制，也可以省略<br>parameter: 传给命令的参数，可以为0，1也可以为多个</p><h2 id="文件目录操作命令"><a href="#文件目录操作命令" class="headerlink" title="文件目录操作命令"></a>文件目录操作命令</h2><ul><li>ls [-al] [dir] 显示指定目录下的内容(使用 ll代替 ls -l)。</li><li>cd [dirName] ~:当前用户的home目录，.:表示目前所在的目录，..:表示目前目录位置的上级目录。</li><li>cat [-n] filename 用于显示文件内容    -n:由1开始对所有输出的行数编号。</li><li>more filename 以分页形式显示文件内容，回车：向下一行，b:回退上一屏，q:退出，空格：下一屏。</li><li>tail [-f] filename 查看文件末尾内容，-f:动态的读取文件末尾内容并显示，用于日志文件的内容输出。</li><li>echo 输入内容 &gt;&gt; 追加的文件 ，其中如果是&gt;&gt;那么追加到文件中去，&gt;表示覆盖。</li><li>mkdir [-p] dirname 创建目录 -p:确保目录存在，不存在就创建一个，可以实现多层目录同时创建。</li><li>rmdir [-p] dirname 删除空目录,-p:子目录被删除后使得父目录为空，则一并删除，rmdir itcast*,删除以itcast开始的空目录</li><li>rm [-rf] name 删除文件或者目录，-r:将目录及目录中所有文件逐一删除，-f:无需确认，直接删除</li><li>cp [-r] source dest 复制文件或目录，-r:如果复制的是目录，将复制该目录下的所有子目录和文件 可以选择将整个目录复制到另外目录下去，也可以选择将目录下的内容都复制进去，例如：cp -r itcast&#x2F;* itheima&#x2F;</li><li>mv source dest 为文件或者目录改名，或将文件或者目录移动到其它位置</li></ul><p><strong>tips:</strong><br>    -a:显示所有文件及目录包括隐藏文件<br>    -l:显示更多的详细信息</p><h2 id="打包压缩命令"><a href="#打包压缩命令" class="headerlink" title="打包压缩命令"></a>打包压缩命令</h2><p>tar [-zcxvf] filename [files]<br>包文件后缀为.tar表示只是完成了打包，并没有压缩<br>包文件后缀为.tar.gz表示打包的同时还进行了压缩<br>说明：</p><ul><li>-z: z代表gzip,通过gzip命令处理文件，gzip可以对文件压缩或者解压</li><li>-c: c代表create,创建新的包文件</li><li>-x: x代表的是extract,实现从包文件中还原文件</li><li>-v: v代表的是verbose,显示命令执行过程</li><li>-f: f代表 file,用于指定包文件名称<br>组合：xvf 解包,zxvf 解压并解包，cvf 打包 , zcvf 打包并压缩<br>tar -zxvf hello.tar.gz -C &#x2F;usr&#x2F;local，将文件解压到指定的目录去</li></ul><h2 id="文本编辑命令-Vim"><a href="#文本编辑命令-Vim" class="headerlink" title="文本编辑命令 Vim"></a>文本编辑命令 Vim</h2><p>作用： 对文件内容进行编辑，vim实际上是一个文本编辑器 vim fileName<br>说明：</p><ol><li>在使用vim命令编辑文件时，如果指定文件不存在则创建文件。</li><li>分为三种模式，分别为：命令模式(Command mode),插入模式(Insert mode),底行模式(Last line mode).这三种模式之间可以相互切换。<ol><li>命令模式：<ul><li>可以查看文件内容，移动光标(上下左右箭头,gg(开头),G(末尾))</li><li>通过vim命令打开文件后，默认进入命令模式</li><li>另外两种模式需要首先进入命令模式之后，才能进入彼此</li></ul></li><li>插入模式<ul><li>插入模式下可以对文件内容进行编辑</li><li>在命令模式下按下[i,a,o]其中一个就可以进入</li><li>esc回到命令模式</li></ul></li><li>底行模式<ul><li>底行模式可以对文件内容进行查找，显示行号，退出等操作</li><li>在命令模式下按下[:,&#x2F;]中一个，进入底行</li><li>通过&#x2F;进入底行模式，可以对文件进行查找</li><li>通过:进入底行模式，可以输入wq(保存并退出),q!(不保存退出), set nu(显示行号)</li></ul></li></ol></li></ol><h2 id="查找命令"><a href="#查找命令" class="headerlink" title="查找命令"></a>查找命令</h2><ol><li>在指定目录下查找文件<br> find dirName -option fileName,其中option 一般是指定名称-name<br> 例如 find . -name “*.java” 在当前目录下按照名称寻找以.java 结尾的文件</li><li>grep word fileName 从指定的文件中查找文本内容。<br>例如：grep Hello *.java</li></ol>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;Linux&quot;&gt;&lt;a href=&quot;#Linux&quot; class=&quot;headerlink&quot; title=&quot;Linux&quot;&gt;&lt;/a&gt;Linux&lt;/h1&gt;&lt;h2 id=&quot;使用SSH工具远程操作服务器&quot;&gt;&lt;a href=&quot;#使用SSH工具远程操作服务器&quot; class=&quot;head</summary>
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>位运算</title>
